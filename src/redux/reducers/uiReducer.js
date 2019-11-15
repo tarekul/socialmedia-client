@@ -6,12 +6,11 @@ const initialState = {
 };
 
 export default function(state = initialState, action) {
-  switch (action.types) {
+  switch (action.type) {
     case SET_ERRORS:
       return {
-        ...state,
         loading: false,
-        errors: action.payload
+        errors: { ...action.payload }
       };
     case CLEAR_ERRORS:
       return initialState;
