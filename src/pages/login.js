@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 import PropTypes from "prop-types";
 import AppIcon from "../images/icon.png";
@@ -17,99 +17,102 @@ const styles = theme => ({
   ...theme.pageStyles
 });
 
-class login extends Component {
-  constructor() {
-    super();
-    this.state = {
-      email: "",
-      password: "",
-      //loading: false,
-      errors: {}
-    };
-  }
-  handleSubmit = event => {
+function Login(props) {
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
+  const [errors, seterrors] = useState({});
+
+  useEffect(() => {
+    if (props.UI.errors) {
+      seterrors(props.UI.errors);
+    }
+  }, [props.UI.errors]);
+
+  const handleSubmit = event => {
     event.preventDefault();
     //this.setState({ loading: true });
     const userData = {
-      email: this.state.email,
-      password: this.state.password
+      email: email,
+      password: password
     };
-    this.props.loginUser(userData, this.props.history);
+    props.loginUser(userData, props.history);
   };
-  handleChange = event => {
-    this.setState({
-      [event.target.name]: event.target.value
-    });
+  const handleChange = e => {
+    e.target.name === "email"
+      ? setemail(e.target.value)
+      : setpassword(e.target.value);
+    // this.setState({
+    //   [event.target.name]: event.target.value
+    // });
   };
-  render() {
-    const {
-      classes,
-      UI: { loading, errors }
-    } = this.props;
-    //const { errors } = this.state;
-    return (
-      <Grid container className={classes.form}>
-        <Grid item sm></Grid>
-        <Grid item sm>
-          <img src={AppIcon} alt="mailbox" className={classes.image} />
-          <Typography variant="h3" className={classes.pageTitle}>
+
+  const {
+    classes,
+    UI: { loading }
+  } = props;
+  //const { errors } = this.state;
+  return (
+    <Grid container className={classes.form}>
+      <Grid item sm></Grid>
+      <Grid item sm>
+        <img src={AppIcon} alt="mailbox" className={classes.image} />
+        <Typography variant="h3" className={classes.pageTitle}>
+          Login
+        </Typography>
+        <form noValidate onSubmit={handleSubmit}>
+          <TextField
+            id="email"
+            name="email"
+            type="email"
+            label="Email"
+            className={classes.textField}
+            helperText={errors.email}
+            error={errors.email ? true : false}
+            value={email}
+            onChange={handleChange}
+            fullWidth
+          />
+          <TextField
+            id="password"
+            name="password"
+            type="password"
+            label="Password"
+            className={classes.textField}
+            helperText={errors.password}
+            error={errors.password ? true : false}
+            value={password}
+            onChange={handleChange}
+            fullWidth
+          />
+          {errors.general && (
+            <Typography variant="body2" className={classes.customError}>
+              {errors.general}
+            </Typography>
+          )}
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            disabled={loading}
+            className={classes.button}
+          >
             Login
-          </Typography>
-          <form noValidate onSubmit={this.handleSubmit}>
-            <TextField
-              id="email"
-              name="email"
-              type="email"
-              label="Email"
-              className={classes.textField}
-              helperText={errors.email}
-              error={errors.email ? true : false}
-              value={this.state.email}
-              onChange={this.handleChange}
-              fullWidth
-            />
-            <TextField
-              id="password"
-              name="password"
-              type="password"
-              label="Password"
-              className={classes.textField}
-              helperText={errors.password}
-              error={errors.password ? true : false}
-              value={this.state.password}
-              onChange={this.handleChange}
-              fullWidth
-            />
-            {errors.general && (
-              <Typography variant="body2" className={classes.customError}>
-                {errors.general}
-              </Typography>
+            {loading && (
+              <CircularProgress size={30} className={classes.progress} />
             )}
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              disabled={loading}
-              className={classes.button}
-            >
-              Login
-              {loading && (
-                <CircularProgress size={30} className={classes.progress} />
-              )}
-            </Button>
-            <br />
-            <small>
-              don't have an account ? sign up <Link to="/signup">here</Link>
-            </small>
-          </form>
-        </Grid>
-        <Grid item sm></Grid>
+          </Button>
+          <br />
+          <small>
+            don't have an account ? sign up <Link to="/signup">here</Link>
+          </small>
+        </form>
       </Grid>
-    );
-  }
+      <Grid item sm></Grid>
+    </Grid>
+  );
 }
 
-login.propTypes = {
+Login.propTypes = {
   classes: PropTypes.object.isRequired,
   loginUser: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
@@ -127,4 +130,4 @@ const mapActionsToProps = {
 export default connect(
   mapStateToProps,
   mapActionsToProps
-)(withStyles(styles)(login));
+)(withStyles(styles)(Login));

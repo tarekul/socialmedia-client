@@ -138,7 +138,10 @@ class signup extends Component {
 }
 
 signup.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  UI: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  signUpUser: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
