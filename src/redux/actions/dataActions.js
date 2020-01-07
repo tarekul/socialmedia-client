@@ -33,3 +33,13 @@ export const unlikePost = postId => dispatch => {
       console.log(err);
     });
 };
+
+export const deletePost = postId => dispatch => {
+  Axios.delete(`/post/${postId}`)
+    .then(() => {
+      dispatch(getPosts());
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};

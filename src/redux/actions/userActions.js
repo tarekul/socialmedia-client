@@ -52,7 +52,7 @@ export const logoutUser = () => dispatch => {
 
 export const getUserData = () => dispatch => {
   dispatch({ type: "LOADING_USER" });
-  axios
+  return axios
     .get("/user")
     .then(res => {
       dispatch({
@@ -67,9 +67,9 @@ export const getUserData = () => dispatch => {
 
 export const uploadImage = formData => dispatch => {
   dispatch({ type: LOADING_USER });
-  axios
+  return axios
     .post("/user/image", formData)
-    .then(res => {
+    .then(() => {
       dispatch(getUserData());
     })
     .catch(err => {

@@ -14,9 +14,10 @@ import Typography from "@material-ui/core/Typography";
 import ChatIcon from "@material-ui/icons/Chat";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
+import DeleteIcon from "@material-ui/icons/Delete";
 //redux
 import { connect } from "react-redux";
-import { likePost, unlikePost } from "../redux/actions/dataActions";
+import { likePost, unlikePost, deletePost } from "../redux/actions/dataActions";
 
 const styles = {
   card: {
@@ -47,6 +48,9 @@ class Post extends Component {
   unlikePost = () => {
     this.props.unlikePost(this.props.post.postId);
   };
+  handleDelete = () => {
+    this.props.deletePost(this.props.post.postId);
+  };
   render() {
     dayjs.extend(relativeTime);
     const {
@@ -60,7 +64,10 @@ class Post extends Component {
         likeCount,
         commentCount
       },
-      user: { authenticated }
+      user: {
+        authenticated,
+        credentials: { handle }
+      }
     } = this.props;
     const likeButton = !authenticated ? (
       <MyButton tip="Like">
@@ -77,6 +84,13 @@ class Post extends Component {
         <FavoriteBorder color="primary" />
       </MyButton>
     );
+
+    const deleteButton =
+      authenticated && handle === userHandle ? (
+        <MyButton tip="Delete Post" onClick={this.handleDelete}>
+          <DeleteIcon color="primary" />
+        </MyButton>
+      ) : null;
     return (
       <Card className={classes.card}>
         <CardMedia
@@ -93,6 +107,7 @@ class Post extends Component {
           >
             {userHandle}
           </Typography>
+          {deleteButton}
           <Typography variant="body2" color="textSecondary">
             {dayjs(createdAt).fromNow()}
           </Typography>
@@ -112,6 +127,7 @@ class Post extends Component {
 Post.propTypes = {
   likePost: PropTypes.func.isRequired,
   unlikePost: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
   post: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired
@@ -123,7 +139,8 @@ const mapStateToProps = state => ({
 
 const mapActionsToProps = {
   likePost,
-  unlikePost
+  unlikePost,
+  deletePost
 };
 
 export default connect(

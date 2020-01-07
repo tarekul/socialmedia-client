@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
 import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
 import Post from "../components/Post";
@@ -14,7 +13,6 @@ class home extends Component {
   }
   render() {
     const { posts, loading } = this.props.data;
-    console.log(posts);
     let recentPostMarkup = !loading ? (
       posts.map(post => <Post key={post.postId} post={post} />)
     ) : (

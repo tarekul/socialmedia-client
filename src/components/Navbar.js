@@ -16,7 +16,6 @@ import Notifications from "@material-ui/icons/Notifications";
 export class Navbar extends Component {
   render() {
     const { authenticated } = this.props;
-    console.log(authenticated);
     return (
       <AppBar>
         <Toolbar className="nav-container">
