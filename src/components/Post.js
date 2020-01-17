@@ -5,31 +5,35 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import PropTypes from "prop-types";
 import MyButton from "../utils/MyButton";
+import DeletePost from "../components/DeletePost";
 //MUI stuff
+import Avatar from "@material-ui/core/Avatar";
 import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 //icons
 import ChatIcon from "@material-ui/icons/Chat";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
-import DeleteIcon from "@material-ui/icons/Delete";
 //redux
 import { connect } from "react-redux";
 import { likePost, unlikePost, deletePost } from "../redux/actions/dataActions";
 
 const styles = {
   card: {
-    display: "flex",
     marginBottom: 20
   },
-  image: {
-    minWidth: 200,
-    objectFit: "cover"
-  },
   content: {
-    padding: 25
+    padding: "16px"
+  },
+  deleteButton: {
+    float: "right"
+  },
+  bigAvatar: {
+    width: 60,
+    height: 60
   }
 };
 
@@ -85,33 +89,46 @@ class Post extends Component {
       </MyButton>
     );
 
-    const deleteButton =
-      authenticated && handle === userHandle ? (
-        <MyButton tip="Delete Post" onClick={this.handleDelete}>
-          <DeleteIcon color="primary" />
-        </MyButton>
-      ) : null;
     return (
       <Card className={classes.card}>
-        <CardMedia
+        {/* <CardMedia
           image={userImage}
           title="profile image"
           className={classes.image}
+        /> */}
+        <CardHeader
+          avatar={
+            <Avatar
+              alt="profile pic"
+              src={userImage}
+              className={classes.bigAvatar}
+            />
+          }
+          title={
+            <Typography
+              variant="h6"
+              component={Link}
+              to={`/users/${userHandle}`}
+              color="primary"
+            >
+              {userHandle}
+            </Typography>
+          }
+          subheader={dayjs(createdAt).fromNow()}
+          action={
+            <DeletePost
+              authenticated={authenticated}
+              handle={handle}
+              userHandle={userHandle}
+              postId={postId}
+            />
+          }
         />
+
         <CardContent className={classes.content}>
-          <Typography
-            variant="h5"
-            component={Link}
-            to={`/users/${userHandle}`}
-            color="primary"
-          >
-            {userHandle}
+          <Typography variant="body1" style={{ paddingLeft: "14px" }}>
+            {body}
           </Typography>
-          {deleteButton}
-          <Typography variant="body2" color="textSecondary">
-            {dayjs(createdAt).fromNow()}
-          </Typography>
-          <Typography variant="body1">{body}</Typography>
           {likeButton}
           <span>{likeCount} Likes</span>
           <MyButton tip="comments">
@@ -127,7 +144,7 @@ class Post extends Component {
 Post.propTypes = {
   likePost: PropTypes.func.isRequired,
   unlikePost: PropTypes.func.isRequired,
-  handleDelete: PropTypes.func.isRequired,
+  deletePost: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
   post: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired

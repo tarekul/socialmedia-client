@@ -109,11 +109,6 @@ class Profile extends Component {
               >
                 <EditIcon color="primary" />
               </MyButton>
-              {/* <Tooltip title="Edit Profile Picture" placement="top">
-                <IconButton onClick={this.handleEditPicture} className="button">
-                  <EditIcon color="primary" />
-                </IconButton>
-              </Tooltip> */}
             </div>
             <hr />
             <div className="profile-details">
