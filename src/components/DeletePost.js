@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 import MyButton from "../utils/MyButton";
 import PropTypes from "prop-types";
@@ -63,7 +63,9 @@ DeletePost.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => {};
+const mapStateToProps = state => ({
+  user: state.user
+});
 const mapActionsToProps = {
   deletePost
 };

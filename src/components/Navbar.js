@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import MyButton from "../utils/MyButton";
+
 //MUI stuff
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -13,7 +14,16 @@ import AddIcon from "@material-ui/icons/Add";
 import HomeIcon from "@material-ui/icons/Home";
 import Notifications from "@material-ui/icons/Notifications";
 
+import SharePost from "../components/SharePost";
+import { removeErrors } from "../redux/actions/dataActions";
+
 export class Navbar extends Component {
+  state = {
+    openDialog: false
+  };
+  closeDialog = () => {
+    this.setState({ openDialog: false }, () => this.props.removeErrors());
+  };
   render() {
     const { authenticated } = this.props;
     return (
@@ -21,7 +31,10 @@ export class Navbar extends Component {
         <Toolbar className="nav-container">
           {authenticated ? (
             <>
-              <MyButton tip="Post a scream">
+              <MyButton
+                tip="Share a post"
+                onClick={e => this.setState({ openDialog: true })}
+              >
                 <AddIcon />
               </MyButton>
               <Link to="/">
@@ -32,6 +45,9 @@ export class Navbar extends Component {
               <MyButton tip="Notifications">
                 <Notifications />
               </MyButton>
+              {this.state.openDialog ? (
+                <SharePost openDialog closeDialog={this.closeDialog} />
+              ) : null}
             </>
           ) : (
             <>
@@ -58,4 +74,4 @@ Navbar.propTypes = {
 const mapStateToProps = state => ({
   authenticated: state.user.authenticated
 });
-export default connect(mapStateToProps)(Navbar);
+export default connect(mapStateToProps, { removeErrors })(Navbar);

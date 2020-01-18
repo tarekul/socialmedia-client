@@ -1,5 +1,6 @@
 import {
   SET_POSTS,
+  ADD_POST,
   LOADING_DATA,
   LIKE_POST,
   UNLIKE_POST,
@@ -24,6 +25,12 @@ export default function(state = initialState, action) {
         ...state,
         loading: false,
         posts: action.payload
+      };
+    case ADD_POST:
+      return {
+        ...state,
+        loading: false,
+        posts: [action.payload, ...state.posts]
       };
     case LIKE_POST:
     case UNLIKE_POST:
