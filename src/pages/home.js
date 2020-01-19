@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
-import Post from "../components/Post";
-import Profile from "../components/Profile";
+import Post from "../components/post/Post";
+import Profile from "../components/profile/Profile";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { connect } from "react-redux";

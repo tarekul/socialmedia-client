@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import PropTypes from "prop-types";
-import MyButton from "../utils/MyButton";
-import DeletePost from "../components/DeletePost";
+import MyButton from "../../utils/MyButton";
+import DeletePost from "./DeletePost";
+import PostDialog from "./PostDialog";
 //MUI stuff
 import Avatar from "@material-ui/core/Avatar";
 import Card from "@material-ui/core/Card";
@@ -16,9 +17,14 @@ import Typography from "@material-ui/core/Typography";
 import ChatIcon from "@material-ui/icons/Chat";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
 //redux
 import { connect } from "react-redux";
-import { likePost, unlikePost, deletePost } from "../redux/actions/dataActions";
+import {
+  likePost,
+  unlikePost,
+  deletePost
+} from "../../redux/actions/dataActions";
 
 const styles = {
   card: {
@@ -26,9 +32,6 @@ const styles = {
   },
   content: {
     padding: "16px"
-  },
-  deleteButton: {
-    float: "right"
   },
   bigAvatar: {
     width: 60,
@@ -89,53 +92,51 @@ class Post extends Component {
     );
 
     return (
-      <Card className={classes.card}>
-        {/* <CardMedia
-          image={userImage}
-          title="profile image"
-          className={classes.image}
-        /> */}
-        <CardHeader
-          avatar={
-            <Avatar
-              alt="profile pic"
-              src={userImage}
-              className={classes.bigAvatar}
-            />
-          }
-          title={
-            <Typography
-              variant="h6"
-              component={Link}
-              to={`/users/${userHandle}`}
-              color="primary"
-            >
-              {userHandle}
-            </Typography>
-          }
-          subheader={dayjs(createdAt).fromNow()}
-          action={
-            <DeletePost
-              authenticated={authenticated}
-              handle={handle}
-              userHandle={userHandle}
-              postId={postId}
-            />
-          }
-        />
+      <>
+        <Card className={classes.card}>
+          <CardHeader
+            avatar={
+              <Avatar
+                alt="profile pic"
+                src={userImage}
+                className={classes.bigAvatar}
+              />
+            }
+            title={
+              <Typography
+                variant="h6"
+                component={Link}
+                to={`/users/${userHandle}`}
+                color="primary"
+              >
+                {userHandle}
+              </Typography>
+            }
+            subheader={dayjs(createdAt).fromNow()}
+            action={
+              <DeletePost
+                authenticated={authenticated}
+                handle={handle}
+                userHandle={userHandle}
+                postId={postId}
+              />
+            }
+          />
 
-        <CardContent className={classes.content}>
-          <Typography variant="body1" style={{ paddingLeft: "14px" }}>
-            {body}
-          </Typography>
-          {likeButton}
-          <span>{likeCount} Likes</span>
-          <MyButton tip="comments">
-            <ChatIcon color="primary" />
-          </MyButton>
-          <span>{commentCount} comments</span>
-        </CardContent>
-      </Card>
+          <CardContent className={classes.content}>
+            <Typography variant="body1" style={{ paddingLeft: "14px" }}>
+              {body}
+            </Typography>
+            {likeButton}
+            <span>{likeCount} Likes</span>
+            <MyButton tip="comments">
+              <ChatIcon color="primary" />
+            </MyButton>
+            <span>{commentCount} comments</span>
+            <PostDialog postId={postId} userHandle={userHandle} />
+          </CardContent>
+        </Card>
+      </>
     );
   }
 }

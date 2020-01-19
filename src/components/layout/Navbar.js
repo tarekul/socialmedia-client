@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import MyButton from "../utils/MyButton";
+import MyButton from "../../utils/MyButton";
 
 //MUI stuff
 import AppBar from "@material-ui/core/AppBar";
@@ -14,8 +14,8 @@ import AddIcon from "@material-ui/icons/Add";
 import HomeIcon from "@material-ui/icons/Home";
 import Notifications from "@material-ui/icons/Notifications";
 
-import SharePost from "../components/SharePost";
-import { removeErrors } from "../redux/actions/dataActions";
+import SharePost from "../post/SharePost";
+import { removeErrors } from "../../redux/actions/dataActions";
 
 export class Navbar extends Component {
   state = {

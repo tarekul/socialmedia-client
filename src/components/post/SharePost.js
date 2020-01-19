@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { withStyles } from "@material-ui/core/styles";
-import MyButton from "../utils/MyButton";
+import MyButton from "../../utils/MyButton";
 //Redux
 import { connect } from "react-redux";
-import { addPost } from "../redux/actions/dataActions";
+import { addPost } from "../../redux/actions/dataActions";
 //MUI stuff
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -35,8 +35,9 @@ function SharePost(props) {
   };
 
   const handleSubmit = () => {
-    props.addPost(newPost);
-    setPost("");
+    props
+      .addPost(newPost)
+      .then(res => (res === undefined ? closeDialog() : null));
   };
 
   return (
@@ -46,7 +47,7 @@ function SharePost(props) {
       fullWidth
       maxWidth="sm"
     >
-      <DialogTitle>Edit Your Details</DialogTitle>
+      <DialogTitle>Create Post</DialogTitle>
       <MyButton
         tip="cancel"
         btnClassName={classes.closeButton}

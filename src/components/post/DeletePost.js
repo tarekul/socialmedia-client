@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
-import MyButton from "../utils/MyButton";
+import MyButton from "../../utils/MyButton";
 import PropTypes from "prop-types";
 //MUI stuff
 import Button from "@material-ui/core/Button";
@@ -13,7 +13,7 @@ import DeleteIcon from "@material-ui/icons/DeleteOutline";
 
 //redux
 import { connect } from "react-redux";
-import { deletePost } from "../redux/actions/dataActions";
+import { deletePost } from "../../redux/actions/dataActions";
 
 const styles = {
   deleteButton: {
