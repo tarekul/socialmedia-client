@@ -40,5 +40,25 @@ export default {
     progress: {
       position: "absolute"
     }
+  },
+  invisibleSeparator: {
+    border: "none",
+    margin: 4
+  },
+  visibleSeparator: {
+    width: "90%",
+    borderBottom: "1px solid rgba(0,0,0,0.1)",
+    marginBottom: "20px"
+  },
+  dialogCard: {
+    boxShadow: "none",
+    marginRight: 30
+  },
+  bigAvatar: {
+    width: 60,
+    height: 60
+  },
+  cardHead: {
+    paddingBottom: 0
   }
 };

@@ -5,7 +5,8 @@ import {
   LOADING_DATA,
   LIKE_POST,
   UNLIKE_POST,
-  DELETE_POST
+  DELETE_POST,
+  SUBMIT_COMMENT
 } from "../types";
 
 const initialState = {
@@ -44,8 +45,27 @@ export default function(state = initialState, action) {
         post => post.postId === action.payload.postId
       );
       state.posts[index] = action.payload;
+      if (state.post.postId === action.payload.postId) {
+        const comments = state.post.comments;
+        state.post = action.payload;
+        state.post.comments = comments;
+      }
+
       return {
         ...state
+      };
+    case SUBMIT_COMMENT:
+      // const idx = state.posts.findIndex(
+      //   post => post.postId === action.payload.postId
+      // );
+
+      //state.posts[idx].commentCount = state.posts[idx].commentCount + 1;
+      return {
+        ...state,
+        post: {
+          ...state.post,
+          comments: [action.payload, ...state.post.comments]
+        }
       };
     case DELETE_POST:
       let i = state.posts.findIndex(post => post.postId === action.payload);

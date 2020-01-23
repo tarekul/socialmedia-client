@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./App.css";
 import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
+import responsiveFontSizes from "@material-ui/core/styles/responsiveFontSizes";
 import themeFile from "./utils/theme";
 import jwtDecode from "jwt-decode";
 import axios from "axios";
@@ -19,7 +20,20 @@ import Home from "./pages/home";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
 
-const theme = createMuiTheme(themeFile);
+let theme = createMuiTheme(themeFile);
+theme = responsiveFontSizes(theme);
+
+theme.typography.body1 = {
+  [theme.breakpoints.up("md")]: {
+    fontSize: "1rem"
+  },
+  [theme.breakpoints.down("s")]: {
+    fontSize: "1rem"
+  },
+  [theme.breakpoints.down("xs")]: {
+    fontSize: "1rem"
+  }
+};
 
 const token = localStorage.FBIdToken;
 if (token) {
