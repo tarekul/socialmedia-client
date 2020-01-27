@@ -5,7 +5,7 @@ import userReducer from "./reducers/userReducer";
 import dataReducer from "./reducers/dataReducer";
 import uiReducer from "./reducers/uiReducer";
 
-const intialState = {};
+const initialState = {};
 
 const middleware = [thunk];
 
@@ -16,11 +16,11 @@ const reducers = combineReducers({
 });
 
 const composeEnhancers =
-  typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION__
-    ? window.__REDUX_DEVTOOLS_EXTENSION__()
+  typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
     : compose;
 
 const enhancer = composeEnhancers(applyMiddleware(...middleware));
-const store = createStore(reducers, intialState, enhancer);
+const store = createStore(reducers, initialState, enhancer);
 
 export default store;
