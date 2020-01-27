@@ -15,13 +15,12 @@ const reducers = combineReducers({
   UI: uiReducer
 });
 
-const store = createStore(
-  reducers,
-  intialState,
-  compose(
-    applyMiddleware(...middleware),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  )
-);
+const composeEnhancers =
+  typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION__
+    ? window.__REDUX_DEVTOOLS_EXTENSION__()
+    : compose;
+
+const enhancer = composeEnhancers(applyMiddleware(...middleware));
+const store = createStore(reducers, intialState, enhancer);
 
 export default store;
