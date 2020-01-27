@@ -19,6 +19,7 @@ import AuthRoute from "./utils/AuthRoute";
 import Home from "./pages/home";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
+import User from "./pages/user";
 
 let theme = createMuiTheme(themeFile);
 theme = responsiveFontSizes(theme);
@@ -34,6 +35,9 @@ theme.typography.body1 = {
     fontSize: "1rem"
   }
 };
+
+axios.defaults.baseURL =
+  "https://us-central1-socialapp-caeff.cloudfunctions.net/api";
 
 const token = localStorage.FBIdToken;
 if (token) {
@@ -60,6 +64,12 @@ class App extends Component {
                 <Route exact path="/" component={Home} />
                 <AuthRoute exact path="/login" component={Login} />
                 <AuthRoute exact path="/signup" component={Signup} />
+                <Route exact path="/users/:handle" component={User} />
+                <Route
+                  exact
+                  path="/users/:handle/post/:postId"
+                  component={User}
+                />
               </Switch>
             </div>
           </BrowserRouter>

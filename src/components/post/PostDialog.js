@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
@@ -58,13 +58,33 @@ const styles = {
 
 function PostDialog(props) {
   const [open, setOpen] = useState(false);
+  const [oldPath, setoldPath] = useState("");
+  const [newPath, setnewPath] = useState("");
   const fullScreen = useMediaQuery("(max-width:600px)");
+
+  useEffect(() => {
+    if (props.openDialog) {
+      handleOpen();
+    }
+  }, [props.openDialog]);
+
   const handleOpen = () => {
+    let oldPath = window.location.pathname;
+
+    const { userHandle, postId } = props;
+    const newPath = `/users/${userHandle}/post/${postId}`;
+
+    if (oldPath === newPath) oldPath = `/users/${userHandle}`;
+    window.history.pushState(null, null, newPath);
+
     setOpen(true);
+    setoldPath(oldPath);
+    setnewPath(newPath);
     props.getPost(props.postId);
   };
 
   const handleClose = () => {
+    window.history.pushState(null, null, oldPath);
     setOpen(false);
     props.removeErrors();
   };

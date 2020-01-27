@@ -26,47 +26,46 @@ const styles = {
 class Comments extends Component {
   render() {
     const { comments, classes } = this.props;
-    {
-      return comments.map((comment, index) => {
-        const { body, createdAt, userImage, userHandle } = comment;
-        return (
-          <Fragment key={createdAt}>
-            <Card className={classes.dialogCard}>
-              <CardHeader
-                className={classes.cardHead}
-                avatar={
-                  <Avatar
-                    alt="profile pic"
-                    src={userImage}
-                    className={classes.bigAvatar}
-                  />
-                }
-                title={
-                  <Typography
-                    variant="h6"
-                    component={Link}
-                    to={`/users/${userHandle}`}
-                    color="primary"
-                  >
-                    {userHandle}
-                  </Typography>
-                }
-                subheader={dayjs(createdAt).format("h:mm a, MMMM DD YYYY")}
-              />
 
-              <CardContent>
-                <Typography variant="body1" style={{ paddingLeft: "14px" }}>
-                  {body}
+    return comments.map((comment, index) => {
+      const { body, createdAt, userImage, userHandle } = comment;
+      return (
+        <Fragment key={createdAt}>
+          <Card className={classes.dialogCard}>
+            <CardHeader
+              className={classes.cardHead}
+              avatar={
+                <Avatar
+                  alt="profile pic"
+                  src={userImage}
+                  className={classes.bigAvatar}
+                />
+              }
+              title={
+                <Typography
+                  variant="h6"
+                  component={Link}
+                  to={`/users/${userHandle}`}
+                  color="primary"
+                >
+                  {userHandle}
                 </Typography>
-              </CardContent>
-            </Card>
-            {index !== comments.length - 1 && (
-              <hr className={classes.visibleSeparator} />
-            )}
-          </Fragment>
-        );
-      });
-    }
+              }
+              subheader={dayjs(createdAt).format("h:mm a, MMMM DD YYYY")}
+            />
+
+            <CardContent>
+              <Typography variant="body1" style={{ paddingLeft: "14px" }}>
+                {body}
+              </Typography>
+            </CardContent>
+          </Card>
+          {index !== comments.length - 1 && (
+            <hr className={classes.visibleSeparator} />
+          )}
+        </Fragment>
+      );
+    });
   }
 }
 

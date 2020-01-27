@@ -69,6 +69,7 @@ export const submitComment = (postId, commentData) => dispatch => {
 export const deletePost = postId => dispatch => {
   Axios.delete(`/post/${postId}`)
     .then(() => {
+      dispatch({ type: DELETE_POST });
       dispatch(removeErrors());
     })
     .catch(err => {
@@ -90,6 +91,13 @@ export const addPost = body => dispatch => {
       });
       return err;
     });
+};
+
+export const getUserData = userHandle => dispatch => {
+  dispatch({ type: LOADING_DATA });
+  return Axios.get(`/user/${userHandle}`)
+    .then(res => dispatch({ type: SET_POSTS, payload: res.data.posts }))
+    .catch(() => dispatch({ type: SET_POSTS, payload: null }));
 };
 
 export const removeErrors = () => dispatch => {

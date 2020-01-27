@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import PropTypes from "prop-types";
 import Post from "../components/post/Post";
 import Profile from "../components/profile/Profile";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import PostSkeleton from "../utils/PostSkeleton";
 
 import { connect } from "react-redux";
 import { getPosts } from "../redux/actions/dataActions";
@@ -17,7 +17,7 @@ class home extends Component {
     let recentPostMarkup = !loading ? (
       posts.map(post => <Post key={post.postId} post={post} />)
     ) : (
-      <CircularProgress />
+      <PostSkeleton />
     );
     return (
       <Grid container spacing={6}>

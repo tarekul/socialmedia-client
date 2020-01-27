@@ -12,9 +12,9 @@ import { connect } from "react-redux";
 //Icons
 import AddIcon from "@material-ui/icons/Add";
 import HomeIcon from "@material-ui/icons/Home";
-import Notifications from "@material-ui/icons/Notifications";
 
 import SharePost from "../post/SharePost";
+import Notifications from "./Notifications";
 import { removeErrors } from "../../redux/actions/dataActions";
 
 export class Navbar extends Component {
@@ -42,9 +42,8 @@ export class Navbar extends Component {
                   <HomeIcon />
                 </MyButton>
               </Link>
-              <MyButton tip="Notifications">
-                <Notifications />
-              </MyButton>
+              <Notifications />
+
               {this.state.openDialog ? (
                 <SharePost openDialog closeDialog={this.closeDialog} />
               ) : null}

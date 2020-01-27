@@ -19,7 +19,7 @@ function CommentForm(props) {
 
   useEffect(() => {
     seterrors(props.UI.errors);
-  });
+  }, [props.UI.errors]);
   const handleSubmit = e => {
     e.preventDefault();
     submitComment(postId, { body: body });
