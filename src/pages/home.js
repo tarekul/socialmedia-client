@@ -20,7 +20,7 @@ class home extends Component {
       <PostSkeleton />
     );
     return (
-      <Grid container spacing={6}>
+      <Grid container spacing={6} style={{ width: "calc(100% + 28px)" }}>
         <Grid item sm={8} xs={12}>
           {recentPostMarkup}
         </Grid>

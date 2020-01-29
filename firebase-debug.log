@@ -1,0 +1,25 @@
+[debug] [2020-01-29T19:34:18.634Z] ----------------------------------------------------------------------
+[debug] [2020-01-29T19:34:18.637Z] Command:       /usr/local/bin/node /Users/pursuit/.npm-global/bin/firebase serve
+[debug] [2020-01-29T19:34:18.637Z] CLI Version:   7.6.1
+[debug] [2020-01-29T19:34:18.637Z] Platform:      darwin
+[debug] [2020-01-29T19:34:18.637Z] Node Version:  v12.13.0
+[debug] [2020-01-29T19:34:18.640Z] Time:          Wed Jan 29 2020 14:34:18 GMT-0500 (Eastern Standard Time)
+[debug] [2020-01-29T19:34:18.640Z] ----------------------------------------------------------------------
+[debug] [2020-01-29T19:34:18.641Z] 
+[debug] [2020-01-29T19:34:18.655Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-01-29T19:34:18.656Z] > authorizing via signed-in user
+[debug] [2020-01-29T19:34:18.656Z] [iam] checking project socialapp-caeff for permissions ["firebase.projects.get"]
+[debug] [2020-01-29T19:34:18.658Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/socialapp-caeff:testIamPermissions  
+
+[debug] [2020-01-29T19:34:18.974Z] <<< HTTP RESPONSE 200
+[debug] [2020-01-29T19:34:18.977Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/socialapp-caeff  
+ 
+[debug] [2020-01-29T19:34:19.263Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/pursuit/Desktop/projects/socialmedia-client'...
+[info] 
+[debug] [2020-01-29T19:34:19.266Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/socialapp-caeff/webApps/-/config  
+ 
+[debug] [2020-01-29T19:34:19.732Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: build
+[info] ✔  hosting: Local server: http://localhost:5000
