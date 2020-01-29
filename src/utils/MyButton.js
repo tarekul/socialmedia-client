@@ -11,14 +11,12 @@ export default ({
   buttonDisable = false
 }) => (
   <Tooltip title={tip} className={tipClassName}>
-    <span>
-      <IconButton
-        onClick={onClick}
-        className={btnClassName}
-        disabled={buttonDisable}
-      >
-        {children}
-      </IconButton>
-    </span>
+    <IconButton
+      onClick={onClick}
+      className={btnClassName}
+      disabled={buttonDisable}
+    >
+      {children}
+    </IconButton>
   </Tooltip>
 );

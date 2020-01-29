@@ -59,7 +59,7 @@ const styles = {
 function PostDialog(props) {
   const [open, setOpen] = useState(false);
   const [oldPath, setoldPath] = useState("");
-  const [newPath, setnewPath] = useState("");
+  //const [newPath, setnewPath] = useState("");
   const fullScreen = useMediaQuery("(max-width:600px)");
 
   useEffect(() => {
@@ -79,7 +79,7 @@ function PostDialog(props) {
 
     setOpen(true);
     setoldPath(oldPath);
-    setnewPath(newPath);
+    //setnewPath(newPath);
     props.getPost(props.postId);
   };
 

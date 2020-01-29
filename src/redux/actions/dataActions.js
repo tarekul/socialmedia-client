@@ -69,7 +69,7 @@ export const submitComment = (postId, commentData) => dispatch => {
 export const deletePost = postId => dispatch => {
   Axios.delete(`/post/${postId}`)
     .then(() => {
-      dispatch({ type: DELETE_POST });
+      dispatch({ type: DELETE_POST, payload: postId });
       dispatch(removeErrors());
     })
     .catch(err => {
