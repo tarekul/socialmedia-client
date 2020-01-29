@@ -7,4 +7,4 @@ A platform that allows users to share their thoughts to the world, recieve comme
 <img src="https://images.opencollective.com/material-ui/381e99c/logo/256.png" alt="alt text" width="100" height="100">
 
 ### App Demo
-![](https://gifyu.com/image/qRMf)
+![](socialmediademo.gif)
