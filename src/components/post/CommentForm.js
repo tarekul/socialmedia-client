@@ -38,6 +38,7 @@ function CommentForm(props) {
           onChange={e => setbody(e.target.value)}
           fullWidth
           className={classes.textField}
+          autoComplete="off"
         />
         <hr className={classes.invisibleSeparator} />
         <Button

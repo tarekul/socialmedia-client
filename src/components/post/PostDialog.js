@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { Component } from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
@@ -56,123 +56,134 @@ const styles = {
   }
 };
 
-function PostDialog(props) {
-  const [open, setOpen] = useState(false);
-  const [oldPath, setoldPath] = useState("");
-  //const [newPath, setnewPath] = useState("");
-  const fullScreen = useMediaQuery("(max-width:600px)");
+class PostDialog extends Component {
+  state = {
+    open: false,
+    oldPath: "",
+    newPath: ""
+  };
 
-  useEffect(() => {
-    if (props.openDialog) {
-      handleOpen();
+  componentDidMount() {
+    if (this.props.openDialog) {
+      this.handleOpen();
     }
-  }, [props.openDialog]);
+  }
 
-  const handleOpen = () => {
+  handleOpen = () => {
     let oldPath = window.location.pathname;
 
-    const { userHandle, postId } = props;
+    const { userHandle, postId } = this.props;
     const newPath = `/users/${userHandle}/post/${postId}`;
-
+    this.setState({ newPath });
     if (oldPath === newPath) oldPath = `/users/${userHandle}`;
     window.history.pushState(null, null, newPath);
 
-    setOpen(true);
-    setoldPath(oldPath);
+    this.setState({ open: true });
+    this.setState({ oldPath });
     //setnewPath(newPath);
-    props.getPost(props.postId);
+    this.props.getPost(this.props.postId);
   };
 
-  const handleClose = () => {
-    window.history.pushState(null, null, oldPath);
-    setOpen(false);
-    props.removeErrors();
+  handleClose = () => {
+    window.history.pushState(null, null, this.state.oldPath);
+    this.setState({ open: false });
+    this.props.removeErrors();
   };
 
-  const {
-    classes,
-    post,
-    UI: { loading }
-  } = props;
+  render() {
+    let fullScreen;
+    if (window.matchMedia("(max-width: 600px)").matches) {
+      /* The viewport is less than, or equal to, 600 pixels wide */
+      fullScreen = true;
+    } else {
+      /* The viewport is greater than 600 pixels wide */
+      fullScreen = false;
+    }
+    const {
+      classes,
+      post,
+      UI: { loading }
+    } = this.props;
 
-  const dialogMarkup =
-    !loading && open ? (
-      <>
-        <Card className={classes.dialogCard}>
-          <CardHeader
-            className={classes.cardHead}
-            avatar={
-              <Avatar
-                alt="profile pic"
-                src={post.userImage}
-                className={classes.bigAvatar}
-              />
-            }
-            action={
-              <MyButton
-                tip="cancel"
-                btnClassName={classes.closeBut}
-                onClick={handleClose}
-              >
-                <CloseIcon className={classes.closeButton} />
-              </MyButton>
-            }
-            title={
-              <Typography
-                variant="h6"
-                component={Link}
-                to={`/users/${post.userHandle}`}
-                color="primary"
-              >
-                {post.userHandle}
+    const dialogMarkup =
+      !loading && this.state.open ? (
+        <>
+          <Card className={classes.dialogCard}>
+            <CardHeader
+              className={classes.cardHead}
+              avatar={
+                <Avatar
+                  alt="profile pic"
+                  src={post.userImage}
+                  className={classes.bigAvatar}
+                />
+              }
+              action={
+                <MyButton
+                  tip="cancel"
+                  btnClassName={classes.closeBut}
+                  onClick={this.handleClose}
+                >
+                  <CloseIcon className={classes.closeButton} />
+                </MyButton>
+              }
+              title={
+                <Typography
+                  variant="h6"
+                  component={Link}
+                  to={`/users/${post.userHandle}`}
+                  color="primary"
+                >
+                  {post.userHandle}
+                </Typography>
+              }
+              subheader={dayjs(post.createdAt).format("h:mm a, MMMM DD YYYY")}
+            />
+
+            <CardContent>
+              <Typography variant="body1" style={{ paddingLeft: "14px" }}>
+                {post.body}
               </Typography>
-            }
-            subheader={dayjs(post.createdAt).format("h:mm a, MMMM DD YYYY")}
-          />
-
-          <CardContent>
-            <Typography variant="body1" style={{ paddingLeft: "14px" }}>
-              {post.body}
-            </Typography>
-            <LikeButton postId={post.postId} />
-            <span>{post.likeCount} Likes</span>
-            <MyButton tip="comments">
-              <ChatIcon color="primary" />
-            </MyButton>
-            <span>{post.commentCount} comments</span>
-          </CardContent>
-        </Card>
-        <hr className={classes.visibleSeparator} />
-        <CommentForm postId={post.postId} />
-        <Comments comments={post.comments} />
+              <LikeButton postId={post.postId} />
+              <span>{post.likeCount} Likes</span>
+              <MyButton tip="comments">
+                <ChatIcon color="primary" />
+              </MyButton>
+              <span>{post.commentCount} comments</span>
+            </CardContent>
+          </Card>
+          <hr className={classes.visibleSeparator} />
+          <CommentForm postId={post.postId} />
+          <Comments comments={post.comments} />
+        </>
+      ) : (
+        <div className={classes.spinnerDiv}>
+          <CircularProgress size={150} thickness={2} />
+        </div>
+      );
+    return (
+      <>
+        <MyButton
+          tip="Expand post"
+          tipClassName={classes.expandButton}
+          onClick={this.handleOpen}
+        >
+          <UnfoldMoreIcon color="primary" />
+        </MyButton>
+        <Dialog
+          open={this.state.open}
+          onClose={this.handleClose}
+          fullWidth
+          maxWidth="sm"
+          fullScreen={fullScreen}
+        >
+          <DialogContent className={classes.dialogContent}>
+            {dialogMarkup}
+          </DialogContent>
+        </Dialog>
       </>
-    ) : (
-      <div className={classes.spinnerDiv}>
-        <CircularProgress size={150} thickness={2} />
-      </div>
     );
-  return (
-    <>
-      <MyButton
-        tip="Expand post"
-        tipClassName={classes.expandButton}
-        onClick={handleOpen}
-      >
-        <UnfoldMoreIcon color="primary" />
-      </MyButton>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        fullWidth
-        maxWidth="sm"
-        fullScreen={fullScreen}
-      >
-        <DialogContent className={classes.dialogContent}>
-          {dialogMarkup}
-        </DialogContent>
-      </Dialog>
-    </>
-  );
+  }
 }
 
 PostDialog.propTypes = {

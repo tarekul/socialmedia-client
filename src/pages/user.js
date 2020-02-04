@@ -68,7 +68,7 @@ class user extends Component {
       })
     );
     return (
-      <Grid container spacing={8}>
+      <Grid container spacing={8} style={{ width: "calc(100% + 28px)" }}>
         <Grid item sm={8} xs={12}>
           {postsMarkup}
         </Grid>
