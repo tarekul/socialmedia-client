@@ -118,7 +118,9 @@ function SharePost(props) {
               marginTop: 30,
             }}
           >
-            {image && <img src={image} className={classes.photo} />}
+            {image && (
+              <img src={image} className={classes.photo} alt="post photo" />
+            )}
             {image && (
               <MyButton
                 tip="remove image"

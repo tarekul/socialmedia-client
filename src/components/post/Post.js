@@ -14,7 +14,6 @@ import Avatar from "@material-ui/core/Avatar";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 //icons
 import ChatIcon from "@material-ui/icons/Chat";
@@ -116,7 +115,11 @@ class Post extends Component {
           </CardContent>
           {postImageUrl && (
             <div className={classes.media}>
-              <img src={postImageUrl} className={classes.image} />
+              <img
+                src={postImageUrl}
+                className={classes.image}
+                alt="post image"
+              />
             </div>
           )}
         </Card>
