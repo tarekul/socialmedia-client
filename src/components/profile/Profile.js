@@ -23,11 +23,11 @@ import { connect } from "react-redux";
 import { logoutUser, uploadImage } from "../../redux/actions/userActions";
 
 const styles = {
-  ...theme
+  ...theme,
 };
 
 class Profile extends Component {
-  handleImageChange = e => {
+  handleImageChange = (e) => {
     const image = e.target.files[0];
     // send to server
     const formData = new FormData();
@@ -49,8 +49,8 @@ class Profile extends Component {
       user: {
         credentials: { handle, createdAt, imageUrl, bio, website, location },
         loading,
-        authenticated
-      }
+        authenticated,
+      },
     } = this.props;
 
     let profileMarkup = !loading ? (
@@ -148,8 +148,8 @@ class Profile extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  user: state.user
+const mapStateToProps = (state) => ({
+  user: state.user,
 });
 
 const mapActionsToProps = { logoutUser, uploadImage };
@@ -158,7 +158,7 @@ Profile.propTypes = {
   user: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
   logoutUser: PropTypes.func.isRequired,
-  uploadImage: PropTypes.func.isRequired
+  uploadImage: PropTypes.func.isRequired,
 };
 export default connect(
   mapStateToProps,

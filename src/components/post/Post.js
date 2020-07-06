@@ -14,6 +14,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 //icons
 import ChatIcon from "@material-ui/icons/Chat";
@@ -24,11 +25,24 @@ import { connect } from "react-redux";
 const styles = {
   ...theme,
   card: {
-    marginBottom: 20
+    marginBottom: 20,
   },
   content: {
-    wordBreak: "break-all"
-  }
+    wordBreak: "break-all",
+  },
+  media: {
+    height: "auto",
+    textAlign: "center",
+    paddingBottom: 10,
+  },
+  image: {
+    maxHeight: 600,
+    maxWidth: 800,
+    "@media (max-width:500px)": {
+      maxHeight: 300,
+      maxWidth: 400,
+    },
+  },
 };
 
 class Post extends Component {
@@ -43,14 +57,15 @@ class Post extends Component {
         userHandle,
         postId,
         likeCount,
-        commentCount
+        commentCount,
+        postImageUrl,
       },
       user: {
         authenticated,
-        credentials: { handle }
-      }
+        credentials: { handle },
+      },
     } = this.props;
-
+    console.log(postImageUrl);
     return (
       <>
         <Card className={classes.card}>
@@ -99,6 +114,11 @@ class Post extends Component {
               openDialog={this.props.openDialog}
             />
           </CardContent>
+          {postImageUrl && (
+            <div className={classes.media}>
+              <img src={postImageUrl} className={classes.image} />
+            </div>
+          )}
         </Card>
       </>
     );
@@ -109,11 +129,11 @@ Post.propTypes = {
   user: PropTypes.object.isRequired,
   post: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
-  openDialog: PropTypes.bool
+  openDialog: PropTypes.bool,
 };
 
-const mapStateToProps = state => ({
-  user: state.user
+const mapStateToProps = (state) => ({
+  user: state.user,
 });
 
 export default connect(mapStateToProps)(withStyles(styles)(Post));
