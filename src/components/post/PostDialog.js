@@ -16,7 +16,6 @@ import Avatar from "@material-ui/core/Avatar";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 //icons
 import ChatIcon from "@material-ui/icons/Chat";
@@ -33,34 +32,34 @@ const styles = {
   profileImage: {
     width: 100,
     height: 100,
-    objectFit: "cover"
+    objectFit: "cover",
   },
   dialogContent: {
     "@media (max-width:600px)": {
-      padding: 0
+      padding: 0,
     },
-    wordBreak: "break-all"
+    wordBreak: "break-all",
   },
   expandButton: {
-    float: "right"
+    float: "right",
   },
   closeBut: {
     position: "absolute",
     right: 14,
-    top: 8
+    top: 8,
   },
   spinnerDiv: {
     textAlign: "center",
     marginTop: 50,
-    marginBottom: 50
-  }
+    marginBottom: 50,
+  },
 };
 
 class PostDialog extends Component {
   state = {
     open: false,
     oldPath: "",
-    newPath: ""
+    newPath: "",
   };
 
   componentDidMount() {
@@ -102,7 +101,7 @@ class PostDialog extends Component {
     const {
       classes,
       post,
-      UI: { loading }
+      UI: { loading },
     } = this.props;
 
     const dialogMarkup =
@@ -192,17 +191,17 @@ PostDialog.propTypes = {
   post: PropTypes.object.isRequired,
   UI: PropTypes.object.isRequired,
   postId: PropTypes.string.isRequired,
-  userHandle: PropTypes.string.isRequired
+  userHandle: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   post: state.data.post,
-  UI: state.UI
+  UI: state.UI,
 });
 
 const mapActionsToProps = {
   getPost,
-  removeErrors
+  removeErrors,
 };
 
 export default connect(

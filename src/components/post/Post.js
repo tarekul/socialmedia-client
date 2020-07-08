@@ -118,7 +118,7 @@ class Post extends Component {
               <img
                 src={postImageUrl}
                 className={classes.image}
-                alt="post image"
+                alt="post pic"
               />
             </div>
           )}
