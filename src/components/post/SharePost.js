@@ -119,7 +119,7 @@ function SharePost(props) {
             }}
           >
             {image && (
-              <img src={image} className={classes.photo} alt="post photo" />
+              <img src={image} className={classes.photo} alt="post pic" />
             )}
             {image && (
               <MyButton
