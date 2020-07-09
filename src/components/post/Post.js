@@ -64,7 +64,6 @@ class Post extends Component {
         credentials: { handle },
       },
     } = this.props;
-    console.log(postImageUrl);
     return (
       <>
         <Card className={classes.card}>

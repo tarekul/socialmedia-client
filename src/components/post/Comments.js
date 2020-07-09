@@ -12,15 +12,25 @@ import CardContent from "@material-ui/core/CardContent";
 
 const styles = {
   ...theme,
+  small: {
+    width: 50,
+    height: 50,
+  },
   commentImage: {
     maxWidth: "100%",
     height: 100,
     objectFit: "cover",
-    borderRadius: "50%"
+    borderRadius: "50%",
   },
   commentData: {
-    marginLeft: 20
-  }
+    marginLeft: 20,
+  },
+  dialogCard: {
+    backgroundColor: "lightgrey",
+    borderRadius: 50,
+    marginBottom: 20,
+    width: "fit-content",
+  },
 };
 
 class Comments extends Component {
@@ -38,12 +48,12 @@ class Comments extends Component {
                 <Avatar
                   alt="profile pic"
                   src={userImage}
-                  className={classes.bigAvatar}
+                  className={classes.small}
                 />
               }
               title={
                 <Typography
-                  variant="h6"
+                  variant="body1"
                   component={Link}
                   to={`/users/${userHandle}`}
                   color="primary"
@@ -51,7 +61,7 @@ class Comments extends Component {
                   {userHandle}
                 </Typography>
               }
-              subheader={dayjs(createdAt).format("h:mm a, MMMM DD YYYY")}
+              subheader={dayjs(createdAt).fromNow()}
             />
 
             <CardContent>
@@ -60,9 +70,6 @@ class Comments extends Component {
               </Typography>
             </CardContent>
           </Card>
-          {index !== comments.length - 1 && (
-            <hr className={classes.visibleSeparator} />
-          )}
         </Fragment>
       );
     });

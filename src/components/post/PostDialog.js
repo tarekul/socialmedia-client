@@ -151,9 +151,9 @@ class PostDialog extends Component {
               <span>{post.commentCount} comments</span>
             </CardContent>
           </Card>
-          <hr className={classes.visibleSeparator} />
-          <CommentForm postId={post.postId} />
+
           <Comments comments={post.comments} />
+          <CommentForm postId={post.postId} />
         </>
       ) : (
         <div className={classes.spinnerDiv}>

@@ -108,6 +108,7 @@ function SharePost(props) {
               value={newPost}
               error={props.UI.errors.error ? true : false}
               helperText={props.UI.errors.error}
+              InputProps={{ disableUnderline: true }}
             />
           </div>
           <div

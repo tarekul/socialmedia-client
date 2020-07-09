@@ -13,7 +13,7 @@ class user extends Component {
   state = {
     profile: null,
     postIdParam: null,
-    handleParam: null
+    handleParam: null,
   };
   componentDidMount() {
     const handle = this.props.match.params.handle;
@@ -23,13 +23,14 @@ class user extends Component {
       this.setState({ postIdParam: postId });
     }
     this.setState({ handleParam: handle });
+
     this.props.getUserData(handle);
     axios
       .get(`/user/${handle}`)
-      .then(res => {
+      .then((res) => {
         this.setState({ profile: res.data.user });
       })
-      .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
   componentDidUpdate() {
@@ -45,30 +46,31 @@ class user extends Component {
       this.props.getUserData(handle);
       axios
         .get(`/user/${handle}`)
-        .then(res => {
+        .then((res) => {
           this.setState({ profile: res.data.user });
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     }
   }
   render() {
     const { posts, loading } = this.props.data;
+
     const { postIdParam } = this.state;
     const postsMarkup = loading ? (
       <PostSkeleton />
     ) : posts === null ? (
-      <p>No Screams from this user</p>
+      <p>No posts from this user</p>
     ) : !postIdParam ? (
-      posts.map(post => <Post key={post.postId} post={post} />)
+      posts.map((post) => <Post key={post.postId} post={post} />)
     ) : (
-      posts.map(post => {
+      posts.map((post) => {
         if (post.postId !== postIdParam)
           return <Post key={post.postId} post={post} />;
         else return <Post key={post.postId} post={post} openDialog />;
       })
     );
     return (
-      <Grid container spacing={8} style={{ width: "calc(100% + 28px)" }}>
+      <Grid container spacing={3}>
         <Grid item sm={8} xs={12}>
           {postsMarkup}
         </Grid>
@@ -86,11 +88,11 @@ class user extends Component {
 
 user.propTypes = {
   getUserData: PropTypes.func.isRequired,
-  data: PropTypes.object.isRequired
+  data: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-  data: state.data
+const mapStateToProps = (state) => ({
+  data: state.data,
 });
 
 export default connect(mapStateToProps, { getUserData })(user);

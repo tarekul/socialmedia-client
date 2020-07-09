@@ -20,7 +20,7 @@ function CommentForm(props) {
   useEffect(() => {
     seterrors(props.UI.errors);
   }, [props.UI.errors]);
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     submitComment(postId, { body: body });
     setbody("");
@@ -35,7 +35,7 @@ function CommentForm(props) {
           error={errors.comment ? true : false}
           helperText={errors.comment}
           value={body}
-          onChange={e => setbody(e.target.value)}
+          onChange={(e) => setbody(e.target.value)}
           fullWidth
           className={classes.textField}
           autoComplete="off"
@@ -50,7 +50,6 @@ function CommentForm(props) {
           Submit
         </Button>
       </form>
-      <hr className={classes.visibleSeperator} />
     </>
   ) : null;
   return commentFormMarkup;
@@ -59,12 +58,12 @@ function CommentForm(props) {
 CommentForm.propTypes = {
   submitComment: PropTypes.func.isRequired,
   UI: PropTypes.object.isRequired,
-  authenticated: PropTypes.bool.isRequired
+  authenticated: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   UI: state.UI,
-  authenticated: state.user.authenticated
+  authenticated: state.user.authenticated,
 });
 
 export default connect(mapStateToProps, { submitComment })(

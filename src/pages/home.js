@@ -14,6 +14,7 @@ class home extends Component {
   }
   render() {
     const { posts, loading } = this.props.data;
+
     let recentPostMarkup = !loading ? (
       posts.map((post) => <Post key={post.postId} post={post} />)
     ) : (
