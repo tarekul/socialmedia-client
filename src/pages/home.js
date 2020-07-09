@@ -15,12 +15,12 @@ class home extends Component {
   render() {
     const { posts, loading } = this.props.data;
     let recentPostMarkup = !loading ? (
-      posts.map(post => <Post key={post.postId} post={post} />)
+      posts.map((post) => <Post key={post.postId} post={post} />)
     ) : (
       <PostSkeleton />
     );
     return (
-      <Grid container spacing={6} style={{ width: "calc(100% + 28px)" }}>
+      <Grid container spacing={3}>
         <Grid item sm={8} xs={12}>
           {recentPostMarkup}
         </Grid>
@@ -34,10 +34,10 @@ class home extends Component {
 
 home.propTypes = {
   getPosts: PropTypes.func.isRequired,
-  data: PropTypes.object.isRequired
+  data: PropTypes.object.isRequired,
 };
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   data: state.data,
-  UI: state.UI
+  UI: state.UI,
 });
 export default connect(mapStateToProps, { getPosts })(home);

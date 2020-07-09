@@ -98,7 +98,10 @@ class Post extends Component {
             }
           />
           <CardContent className={classes.content}>
-            <Typography variant="body1" style={{ paddingLeft: "14px" }}>
+            <Typography
+              variant="body1"
+              style={{ paddingLeft: "14px", wordBreak: "break-word" }}
+            >
               {body}
             </Typography>
             <LikeButton postId={postId} />
